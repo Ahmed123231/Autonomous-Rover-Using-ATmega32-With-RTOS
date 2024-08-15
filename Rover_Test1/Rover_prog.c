@@ -15,10 +15,12 @@
 #include "UltraSonic_interface.h"
 #include "Rover_interface.h"
 #include "UART_interface.h"
+#include "FreeRTOS/FreeRTOS.h"
+#include "FreeRTOS/task.h"
 #define F_CPU 16000000UL
 #include <util/delay.h>
 
-extern Rover_Status Rover_state; // Extern declaration to access the current rover status across multiple files
+Rover_Status Rover_state; // Extern declaration to access the current rover status across multiple files
 
 
 
@@ -296,5 +298,92 @@ void RoverTransmitStatus(void){
 	UART_voidTX('r');
 	UART_voidTX(':');
 	SendNumber(Rover_state.Direction);  // Function to send number
+	
+}
+
+void vTask_RoverInit(void){
+	
+	Radar_LCD_Init();
+	Rover_voidMotorsInit();
+	IrSensor_voidInit();
+	Buzzer_voidInit();
+	RoverTransmit_Init();
+
+	// Once initialization is complete, delete this task
+	vTaskDelete(NULL);
+	
+	
+	
+}
+
+void vTask_RoverMove(void){
+	
+	u8 angle_1 = 0, angle_2 = 90;
+
+	while(1){
+		// Check if the front is clear (IR sensor or ultrasonic distance)
+		if (Rover_state.F_Obj == 1 && Rover_state.Distance > 10) {
+			Rover_voidMOVFWD(50);
+			while (Rover_state.F_Obj == 1 && Rover_state.Distance > 10) {
+				vTaskDelay(pdMS_TO_TICKS(100));
+			}
+			Rover_voidStop();
+			} else {
+			Rover_voidMOVBCWD(55);
+			vTaskDelay(pdMS_TO_TICKS(500));
+			Rover_voidStop();
+
+			if (Rover_state.L_Obj != 1 && Rover_state.R_Obj == 1) {
+				Rover_voidMOVRW(85);
+				vTaskDelay(pdMS_TO_TICKS(1750));
+				} else if (Rover_state.R_Obj != 1 && Rover_state.L_Obj == 1) {
+				Rover_voidMOVLF(85);
+				vTaskDelay(pdMS_TO_TICKS(1750));
+				} else if (Rover_state.L_Obj == 1) {
+				Rover_voidMOVLF(85);
+				vTaskDelay(pdMS_TO_TICKS(1750));
+				} else if (Rover_state.R_Obj == 1) {
+				Rover_voidMOVRW(85);
+				vTaskDelay(pdMS_TO_TICKS(1750));
+			}
+
+			vTaskDelay(pdMS_TO_TICKS(500));
+			Rover_voidStop();
+			vTaskDelay(pdMS_TO_TICKS(50));
+		}
+		vTaskDelay(pdMS_TO_TICKS(100));
+	}
+	
+	
+	
+}
+
+void vTask_DataDisplay(void){
+	
+	
+	while(1){
+		ROVER_LCD_PrintStatus(&Rover_state);
+		vTaskDelay(pdMS_TO_TICKS(150));
+	}
+	
+}
+
+void vTask_SensorRead(void){
+	
+	while(1){
+		IrSensor_GetDir();
+		UltraSonic_Sendpulse();
+		Rover_state.Distance = UltraSonic_Calc_Distance(UltraSonic_Read_Echo);
+		vTaskDelay(pdMS_TO_TICKS(100));
+	}
+	
+	
+}
+
+void vTask_BT_SendStatus(void){
+	while(1){
+		RoverTransmitStatus();
+		vTaskDelay(pdMS_TO_TICKS(150));
+	}
 	
 }

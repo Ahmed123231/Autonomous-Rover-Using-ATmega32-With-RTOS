@@ -34,6 +34,12 @@
 #define IRF_PORT	DIO_PORTC
 #define IRF_PIN		DIO_PIN3
 
+#define MOVEMENT_TASK_PRIORITY					2
+#define SENSORS_TASK_PRIORITY					1
+#define DISPLAY_TASK_PRIORITY					2
+#define BLUETOOTH_TASK_PRIORITY					1
+#define INIT_TASK_PRIORITY						3
+
 
 typedef struct{
 		u8 Distance;   // Variable Storing Distance Value 
@@ -104,5 +110,14 @@ void RoverTransmit_Init(void);
 /********** Function to Transmit Rover Status  ********/
 void RoverTransmitStatus(void);
 
+void vTask_RoverInit(void);
+
+void vTask_RoverMove(void);
+
+void vTask_DataDisplay(void);
+
+void vTask_SensorRead(void);
+
+void vTask_BT_SendStatus(void);
 
 #endif /* ROVER_INTERFACE_H_ */

@@ -6,6 +6,16 @@ DIO_prog.c
 
 EXTI_prog.c
 
+FreeRTOS\heap_2.c
+
+FreeRTOS\list.c
+
+FreeRTOS\port.c
+
+FreeRTOS\queue.c
+
+FreeRTOS\tasks.c
+
 GI_prog.c
 
 LCD_prog.c

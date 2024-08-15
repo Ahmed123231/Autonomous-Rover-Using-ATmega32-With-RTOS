@@ -32,13 +32,19 @@ LIB_DEP:=
 LINKER_SCRIPT_DEP:=
 
 # Every subdirectory with source files must be described here
-SUBDIRS := 
+SUBDIRS :=  \
+../FreeRTOS
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../DIO_prog.c \
 ../EXTI_prog.c \
+../FreeRTOS/heap_2.c \
+../FreeRTOS/list.c \
+../FreeRTOS/port.c \
+../FreeRTOS/queue.c \
+../FreeRTOS/tasks.c \
 ../GI_prog.c \
 ../LCD_prog.c \
 ../main.c \
@@ -60,6 +66,11 @@ ASM_SRCS +=
 OBJS +=  \
 DIO_prog.o \
 EXTI_prog.o \
+FreeRTOS/heap_2.o \
+FreeRTOS/list.o \
+FreeRTOS/port.o \
+FreeRTOS/queue.o \
+FreeRTOS/tasks.o \
 GI_prog.o \
 LCD_prog.o \
 main.o \
@@ -74,6 +85,11 @@ UltraSonic_prog.o
 OBJS_AS_ARGS +=  \
 DIO_prog.o \
 EXTI_prog.o \
+FreeRTOS/heap_2.o \
+FreeRTOS/list.o \
+FreeRTOS/port.o \
+FreeRTOS/queue.o \
+FreeRTOS/tasks.o \
 GI_prog.o \
 LCD_prog.o \
 main.o \
@@ -88,6 +104,11 @@ UltraSonic_prog.o
 C_DEPS +=  \
 DIO_prog.d \
 EXTI_prog.d \
+FreeRTOS/heap_2.d \
+FreeRTOS/list.d \
+FreeRTOS/port.d \
+FreeRTOS/queue.d \
+FreeRTOS/tasks.d \
 GI_prog.d \
 LCD_prog.d \
 main.d \
@@ -102,6 +123,11 @@ UltraSonic_prog.d
 C_DEPS_AS_ARGS +=  \
 DIO_prog.d \
 EXTI_prog.d \
+FreeRTOS/heap_2.d \
+FreeRTOS/list.d \
+FreeRTOS/port.d \
+FreeRTOS/queue.d \
+FreeRTOS/tasks.d \
 GI_prog.d \
 LCD_prog.d \
 main.d \
@@ -135,6 +161,41 @@ LINKER_SCRIPT_DEP+=
 	
 
 ./EXTI_prog.o: .././EXTI_prog.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"D:\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "D:\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+FreeRTOS/heap_2.o: ../FreeRTOS/heap_2.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"D:\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "D:\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+FreeRTOS/list.o: ../FreeRTOS/list.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"D:\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "D:\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+FreeRTOS/port.o: ../FreeRTOS/port.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"D:\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "D:\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+FreeRTOS/queue.o: ../FreeRTOS/queue.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"D:\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "D:\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+FreeRTOS/tasks.o: ../FreeRTOS/tasks.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"D:\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "D:\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
