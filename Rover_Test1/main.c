@@ -40,7 +40,7 @@ int main(void)
 			xTaskCreate(vTask_SensorRead,"Sensors",configMINIMAL_STACK_SIZE,NULL,SENSORS_TASK_PRIORITY,NULL);
 			vTaskStartScheduler();
 			
-			
+			/**** Should Never Reach Here *******/
 			while(1);
 			
 			

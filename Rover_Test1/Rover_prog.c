@@ -318,7 +318,7 @@ void vTask_RoverInit(void){
 
 void vTask_RoverMove(void){
 	
-	u8 angle_1 = 0, angle_2 = 90;
+	
 
 	while(1){
 		// Check if the front is clear (IR sensor or ultrasonic distance)
@@ -370,11 +370,14 @@ void vTask_DataDisplay(void){
 
 void vTask_SensorRead(void){
 	
+	u8 angle_1 = 0, angle_2 = 90;
 	while(1){
+		
 		IrSensor_GetDir();
 		UltraSonic_Sendpulse();
 		Rover_state.Distance = UltraSonic_Calc_Distance(UltraSonic_Read_Echo);
-		vTaskDelay(pdMS_TO_TICKS(100));
+		Radar_LCD_Sweep(&angle_1,&angle_2);
+		vTaskDelay(pdMS_TO_TICKS(150));
 	}
 	
 	

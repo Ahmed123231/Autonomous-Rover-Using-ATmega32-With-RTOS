@@ -89,6 +89,8 @@ Discarded input sections
  .bss           0x00000000        0x0 FreeRTOS/port.o
  .text.vPortEndScheduler
                 0x00000000        0x2 FreeRTOS/port.o
+ .text.vPortYieldFromTick
+                0x00000000       0xb8 FreeRTOS/port.o
  .text          0x00000000        0x0 FreeRTOS/queue.o
  .data          0x00000000        0x0 FreeRTOS/queue.o
  .bss           0x00000000        0x0 FreeRTOS/queue.o
@@ -103,13 +105,13 @@ Discarded input sections
  .text.prvUnlockQueue
                 0x00000000       0x68 FreeRTOS/queue.o
  .text.xQueueGenericReset
-                0x00000000       0x8c FreeRTOS/queue.o
+                0x00000000       0x84 FreeRTOS/queue.o
  .text.prvInitialiseNewQueue
                 0x00000000       0x26 FreeRTOS/queue.o
  .text.xQueueGenericCreate
                 0x00000000       0x54 FreeRTOS/queue.o
  .text.xQueueGenericSend
-                0x00000000      0x124 FreeRTOS/queue.o
+                0x00000000      0x114 FreeRTOS/queue.o
  .text.prvInitialiseMutex
                 0x00000000       0x20 FreeRTOS/queue.o
  .text.xQueueCreateMutex
@@ -119,7 +121,7 @@ Discarded input sections
  .text.xQueueGiveFromISR
                 0x00000000       0x52 FreeRTOS/queue.o
  .text.xQueueGenericReceive
-                0x00000000      0x182 FreeRTOS/queue.o
+                0x00000000      0x174 FreeRTOS/queue.o
  .text.xQueueReceiveFromISR
                 0x00000000       0x6e FreeRTOS/queue.o
  .text.xQueuePeekFromISR
@@ -144,13 +146,13 @@ Discarded input sections
                 0x00000000       0x4c FreeRTOS/queue.o
  .text.xQueueCRReceiveFromISR
                 0x00000000       0x82 FreeRTOS/queue.o
- .debug_info    0x00000000     0x146f FreeRTOS/queue.o
- .debug_abbrev  0x00000000      0x211 FreeRTOS/queue.o
- .debug_loc     0x00000000     0x1b8d FreeRTOS/queue.o
+ .debug_info    0x00000000     0x143e FreeRTOS/queue.o
+ .debug_abbrev  0x00000000      0x21e FreeRTOS/queue.o
+ .debug_loc     0x00000000     0x1b6f FreeRTOS/queue.o
  .debug_aranges
                 0x00000000       0xe8 FreeRTOS/queue.o
  .debug_ranges  0x00000000      0x120 FreeRTOS/queue.o
- .debug_line    0x00000000      0xa68 FreeRTOS/queue.o
+ .debug_line    0x00000000      0xa44 FreeRTOS/queue.o
  .debug_str     0x00000000      0x804 FreeRTOS/queue.o
  .comment       0x00000000       0x31 FreeRTOS/queue.o
  .debug_frame   0x00000000      0x340 FreeRTOS/queue.o
@@ -160,9 +162,9 @@ Discarded input sections
  .text.prvTaskIsTaskSuspended
                 0x00000000       0x2e FreeRTOS/tasks.o
  .text.vTaskPrioritySet
-                0x00000000       0xfc FreeRTOS/tasks.o
+                0x00000000       0xd4 FreeRTOS/tasks.o
  .text.vTaskResume
-                0x00000000       0x84 FreeRTOS/tasks.o
+                0x00000000       0x78 FreeRTOS/tasks.o
  .text.xTaskResumeFromISR
                 0x00000000       0x90 FreeRTOS/tasks.o
  .text.vTaskEndScheduler
@@ -208,7 +210,7 @@ Discarded input sections
  .text.xTaskNotifyWait
                 0x00000000      0x108 FreeRTOS/tasks.o
  .text.xTaskGenericNotify
-                0x00000000      0x10a FreeRTOS/tasks.o
+                0x00000000       0xfe FreeRTOS/tasks.o
  .text.xTaskGenericNotifyFromISR
                 0x00000000      0x130 FreeRTOS/tasks.o
  .text.vTaskNotifyGiveFromISR
@@ -260,15 +262,11 @@ Discarded input sections
  .text          0x00000000        0x0 Rover_prog.o
  .data          0x00000000        0x0 Rover_prog.o
  .bss           0x00000000        0x0 Rover_prog.o
- .text.Radar_LCD_Sweep
-                0x00000000       0xe2 Rover_prog.o
  .text.Buzzer_voidToggle
                 0x00000000       0x3a Rover_prog.o
  .text          0x00000000        0x0 SG90_prog.o
  .data          0x00000000        0x0 SG90_prog.o
  .bss           0x00000000        0x0 SG90_prog.o
- .text.Servo_SetAngle
-                0x00000000       0x12 SG90_prog.o
  .text          0x00000000        0x0 TIMER0_prog.o
  .data          0x00000000        0x0 TIMER0_prog.o
  .bss           0x00000000        0x0 TIMER0_prog.o
@@ -289,8 +287,6 @@ Discarded input sections
                 0x00000000        0x2 TIMER1_prog.o
  .text.TIMER1_void_Fixed_PCPWM
                 0x00000000       0xa0 TIMER1_prog.o
- .text.TIMER1_voidSetOCRVal
-                0x00000000        0x6 TIMER1_prog.o
  .text.TIMER1_voidFastPWMOCRB
                 0x00000000       0x16 TIMER1_prog.o
  .text          0x00000000        0x0 TIMER2_prog.o
@@ -598,7 +594,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x1eba
+.text           0x00000000     0x1eea
  *(.vectors)
  .vectors       0x00000000       0x54 D:/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -724,219 +720,225 @@ END GROUP
  .text.vPortYield
                 0x00000788       0xb2 FreeRTOS/port.o
                 0x00000788                vPortYield
- .text.vPortYieldFromTick
-                0x0000083a       0xb8 FreeRTOS/port.o
-                0x0000083a                vPortYieldFromTick
  .text.__vector_7
-                0x000008f2        0x6 FreeRTOS/port.o
-                0x000008f2                __vector_7
+                0x0000083a       0x48 FreeRTOS/port.o
+                0x0000083a                __vector_7
  .text.prvResetNextTaskUnblockTime
-                0x000008f8       0x3e FreeRTOS/tasks.o
+                0x00000882       0x3e FreeRTOS/tasks.o
  .text.prvDeleteTCB
-                0x00000936       0x1a FreeRTOS/tasks.o
+                0x000008c0       0x1a FreeRTOS/tasks.o
  .text.prvInitialiseNewTask
-                0x00000950       0xd6 FreeRTOS/tasks.o
+                0x000008da       0xd8 FreeRTOS/tasks.o
  .text.prvInitialiseTaskLists
-                0x00000a26       0x6e FreeRTOS/tasks.o
+                0x000009b2       0x6e FreeRTOS/tasks.o
  .text.prvAddNewTaskToReadyList
-                0x00000a94       0xb8 FreeRTOS/tasks.o
+                0x00000a20       0xac FreeRTOS/tasks.o
  .text.prvAddCurrentTaskToDelayedList
-                0x00000b4c       0xb0 FreeRTOS/tasks.o
+                0x00000acc       0xb0 FreeRTOS/tasks.o
  .text.xTaskCreate
-                0x00000bfc       0xa8 FreeRTOS/tasks.o
-                0x00000bfc                xTaskCreate
+                0x00000b7c       0xa8 FreeRTOS/tasks.o
+                0x00000b7c                xTaskCreate
  .text.vTaskDelete
-                0x00000ca4       0xa2 FreeRTOS/tasks.o
-                0x00000ca4                vTaskDelete
+                0x00000c24       0xa2 FreeRTOS/tasks.o
+                0x00000c24                vTaskDelete
  .text.vTaskStartScheduler
-                0x00000d46       0x54 FreeRTOS/tasks.o
-                0x00000d46                vTaskStartScheduler
+                0x00000cc6       0x54 FreeRTOS/tasks.o
+                0x00000cc6                vTaskStartScheduler
  .text.vTaskSuspendAll
-                0x00000d9a        0xc FreeRTOS/tasks.o
-                0x00000d9a                vTaskSuspendAll
+                0x00000d1a        0xc FreeRTOS/tasks.o
+                0x00000d1a                vTaskSuspendAll
  .text.xTaskIncrementTick
-                0x00000da6      0x174 FreeRTOS/tasks.o
-                0x00000da6                xTaskIncrementTick
+                0x00000d26      0x114 FreeRTOS/tasks.o
+                0x00000d26                xTaskIncrementTick
  .text.xTaskResumeAll
-                0x00000f1a       0xe4 FreeRTOS/tasks.o
-                0x00000f1a                xTaskResumeAll
+                0x00000e3a       0xd4 FreeRTOS/tasks.o
+                0x00000e3a                xTaskResumeAll
  .text.vTaskDelay
-                0x00000ffe       0x2c FreeRTOS/tasks.o
-                0x00000ffe                vTaskDelay
+                0x00000f0e       0x2c FreeRTOS/tasks.o
+                0x00000f0e                vTaskDelay
  .text.prvCheckTasksWaitingTermination
-                0x0000102a       0x5c FreeRTOS/tasks.o
+                0x00000f3a       0x5c FreeRTOS/tasks.o
  .text.prvIdleTask
-                0x00001086        0x6 FreeRTOS/tasks.o
+                0x00000f96        0xa FreeRTOS/tasks.o
  .text.vTaskSwitchContext
-                0x0000108c       0xa8 FreeRTOS/tasks.o
-                0x0000108c                vTaskSwitchContext
+                0x00000fa0       0xa8 FreeRTOS/tasks.o
+                0x00000fa0                vTaskSwitchContext
  .text.LCD_voidSendLowerNibble
-                0x00001134       0x64 LCD_prog.o
-                0x00001134                LCD_voidSendLowerNibble
+                0x00001048       0x64 LCD_prog.o
+                0x00001048                LCD_voidSendLowerNibble
  .text.LCD_voidSetEnable
-                0x00001198       0x22 LCD_prog.o
-                0x00001198                LCD_voidSetEnable
+                0x000010ac       0x22 LCD_prog.o
+                0x000010ac                LCD_voidSetEnable
  .text.LCD_voidSendCommand
-                0x000011ba       0x34 LCD_prog.o
-                0x000011ba                LCD_voidSendCommand
+                0x000010ce       0x34 LCD_prog.o
+                0x000010ce                LCD_voidSendCommand
  .text.LCD_voidSendData
-                0x000011ee       0x34 LCD_prog.o
-                0x000011ee                LCD_voidSendData
+                0x00001102       0x34 LCD_prog.o
+                0x00001102                LCD_voidSendData
  .text.LCD_voidInit
-                0x00001222       0x3e LCD_prog.o
-                0x00001222                LCD_voidInit
+                0x00001136       0x3e LCD_prog.o
+                0x00001136                LCD_voidInit
  .text.LCD_voidSendString
-                0x00001260       0x1a LCD_prog.o
-                0x00001260                LCD_voidSendString
+                0x00001174       0x1a LCD_prog.o
+                0x00001174                LCD_voidSendString
  .text.LCD_voidSendNum
-                0x0000127a       0xce LCD_prog.o
-                0x0000127a                LCD_voidSendNum
+                0x0000118e       0xce LCD_prog.o
+                0x0000118e                LCD_voidSendNum
  .text.LCD_SetGridPos
-                0x00001348       0x10 LCD_prog.o
-                0x00001348                LCD_SetGridPos
- .text.main     0x00001358       0x74 main.o
-                0x00001358                main
+                0x0000125c       0x10 LCD_prog.o
+                0x0000125c                LCD_SetGridPos
+ .text.main     0x0000126c       0x78 main.o
+                0x0000126c                main
  .text.Radar_LCD_Init
-                0x000013cc       0x64 Rover_prog.o
-                0x000013cc                Radar_LCD_Init
+                0x000012e4       0x64 Rover_prog.o
+                0x000012e4                Radar_LCD_Init
  .text.Rover_voidMotorsInit
-                0x00001430       0x34 Rover_prog.o
-                0x00001430                Rover_voidMotorsInit
+                0x00001348       0x34 Rover_prog.o
+                0x00001348                Rover_voidMotorsInit
  .text.Rover_voidMOVFWD
-                0x00001464       0x3c Rover_prog.o
-                0x00001464                Rover_voidMOVFWD
+                0x0000137c       0x3c Rover_prog.o
+                0x0000137c                Rover_voidMOVFWD
  .text.Rover_voidMOVBCWD
-                0x000014a0       0x3c Rover_prog.o
-                0x000014a0                Rover_voidMOVBCWD
+                0x000013b8       0x3c Rover_prog.o
+                0x000013b8                Rover_voidMOVBCWD
  .text.Rover_voidMOVRW
-                0x000014dc       0x3c Rover_prog.o
-                0x000014dc                Rover_voidMOVRW
+                0x000013f4       0x3c Rover_prog.o
+                0x000013f4                Rover_voidMOVRW
  .text.Rover_voidMOVLF
-                0x00001518       0x3c Rover_prog.o
-                0x00001518                Rover_voidMOVLF
+                0x00001430       0x3c Rover_prog.o
+                0x00001430                Rover_voidMOVLF
  .text.Rover_voidStop
-                0x00001554       0x36 Rover_prog.o
-                0x00001554                Rover_voidStop
+                0x0000146c       0x36 Rover_prog.o
+                0x0000146c                Rover_voidStop
  .text.ROVER_LCD_PrintStatus
-                0x0000158a       0xf0 Rover_prog.o
-                0x0000158a                ROVER_LCD_PrintStatus
+                0x000014a2       0xf0 Rover_prog.o
+                0x000014a2                ROVER_LCD_PrintStatus
+ .text.Radar_LCD_Sweep
+                0x00001592       0xe2 Rover_prog.o
+                0x00001592                Radar_LCD_Sweep
  .text.IrSensor_voidInit
-                0x0000167a       0x2a Rover_prog.o
-                0x0000167a                IrSensor_voidInit
+                0x00001674       0x2a Rover_prog.o
+                0x00001674                IrSensor_voidInit
  .text.IrSensor_GetDir
-                0x000016a4       0x36 Rover_prog.o
-                0x000016a4                IrSensor_GetDir
+                0x0000169e       0x36 Rover_prog.o
+                0x0000169e                IrSensor_GetDir
  .text.Buzzer_voidInit
-                0x000016da        0xc Rover_prog.o
-                0x000016da                Buzzer_voidInit
+                0x000016d4        0xc Rover_prog.o
+                0x000016d4                Buzzer_voidInit
  .text.RoverTransmit_Init
-                0x000016e6        0x6 Rover_prog.o
-                0x000016e6                RoverTransmit_Init
+                0x000016e0        0x6 Rover_prog.o
+                0x000016e0                RoverTransmit_Init
  .text.SendNumber
-                0x000016ec       0xb0 Rover_prog.o
-                0x000016ec                SendNumber
+                0x000016e6       0xb0 Rover_prog.o
+                0x000016e6                SendNumber
  .text.RoverTransmitStatus
-                0x0000179c       0x92 Rover_prog.o
-                0x0000179c                RoverTransmitStatus
+                0x00001796       0x92 Rover_prog.o
+                0x00001796                RoverTransmitStatus
  .text.vTask_RoverInit
-                0x0000182e       0x1e Rover_prog.o
-                0x0000182e                vTask_RoverInit
+                0x00001828       0x1e Rover_prog.o
+                0x00001828                vTask_RoverInit
  .text.vTask_RoverMove
-                0x0000184c       0xc8 Rover_prog.o
-                0x0000184c                vTask_RoverMove
+                0x00001846       0xc8 Rover_prog.o
+                0x00001846                vTask_RoverMove
  .text.vTask_DataDisplay
-                0x00001914       0x12 Rover_prog.o
-                0x00001914                vTask_DataDisplay
+                0x0000190e       0x12 Rover_prog.o
+                0x0000190e                vTask_DataDisplay
  .text.vTask_SensorRead
-                0x00001926       0x1e Rover_prog.o
-                0x00001926                vTask_SensorRead
+                0x00001920       0x3c Rover_prog.o
+                0x00001920                vTask_SensorRead
  .text.vTask_BT_SendStatus
-                0x00001944        0xe Rover_prog.o
-                0x00001944                vTask_BT_SendStatus
+                0x0000195c        0xe Rover_prog.o
+                0x0000195c                vTask_BT_SendStatus
  .text.Servo_Init
-                0x00001952       0x10 SG90_prog.o
-                0x00001952                Servo_Init
+                0x0000196a       0x10 SG90_prog.o
+                0x0000196a                Servo_Init
+ .text.Servo_SetAngle
+                0x0000197a       0x12 SG90_prog.o
+                0x0000197a                Servo_SetAngle
  .text.__vector_11
-                0x00001962       0x4e TIMER0_prog.o
-                0x00001962                __vector_11
+                0x0000198c       0x4e TIMER0_prog.o
+                0x0000198c                __vector_11
  .text.__vector_10
-                0x000019b0       0x4e TIMER0_prog.o
-                0x000019b0                __vector_10
+                0x000019da       0x4e TIMER0_prog.o
+                0x000019da                __vector_10
  .text.TIMER1_voidFastPWMICR1
-                0x000019fe       0x80 TIMER1_prog.o
-                0x000019fe                TIMER1_voidFastPWMICR1
+                0x00001a28       0x80 TIMER1_prog.o
+                0x00001a28                TIMER1_voidFastPWMICR1
+ .text.TIMER1_voidSetOCRVal
+                0x00001aa8        0x6 TIMER1_prog.o
+                0x00001aa8                TIMER1_voidSetOCRVal
  .text.TIMER2_voidFastPWM
-                0x00001a7e       0x44 TIMER2_prog.o
-                0x00001a7e                TIMER2_voidFastPWM
+                0x00001aae       0x44 TIMER2_prog.o
+                0x00001aae                TIMER2_voidFastPWM
  .text.__vector_5
-                0x00001ac2       0x4e TIMER2_prog.o
-                0x00001ac2                __vector_5
+                0x00001af2       0x4e TIMER2_prog.o
+                0x00001af2                __vector_5
  .text.__vector_4
-                0x00001b10       0x4e TIMER2_prog.o
-                0x00001b10                __vector_4
+                0x00001b40       0x4e TIMER2_prog.o
+                0x00001b40                __vector_4
  .text.UART_voidInit
-                0x00001b5e       0x16 UART_prog.o
-                0x00001b5e                UART_voidInit
+                0x00001b8e       0x16 UART_prog.o
+                0x00001b8e                UART_voidInit
  .text.UART_voidTX
-                0x00001b74        0x8 UART_prog.o
-                0x00001b74                UART_voidTX
+                0x00001ba4        0x8 UART_prog.o
+                0x00001ba4                UART_voidTX
  .text.UltraSonic_Sendpulse
-                0x00001b7c       0x1e UltraSonic_prog.o
-                0x00001b7c                UltraSonic_Sendpulse
+                0x00001bac       0x1e UltraSonic_prog.o
+                0x00001bac                UltraSonic_Sendpulse
  .text.UltraSonic_Read_Echo
-                0x00001b9a       0x46 UltraSonic_prog.o
-                0x00001b9a                UltraSonic_Read_Echo
+                0x00001bca       0x46 UltraSonic_prog.o
+                0x00001bca                UltraSonic_Read_Echo
  .text.UltraSonic_Calc_Distance
-                0x00001be0       0x20 UltraSonic_prog.o
-                0x00001be0                UltraSonic_Calc_Distance
+                0x00001c10       0x20 UltraSonic_prog.o
+                0x00001c10                UltraSonic_Calc_Distance
  .text.avr-libc.fplib
-                0x00001c00       0x5e d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
-                0x00001c00                __fixunssfsi
+                0x00001c30       0x5e d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+                0x00001c30                __fixunssfsi
  .text.avr-libc.fplib
-                0x00001c5e       0x7a d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(floatsisf.o)
-                0x00001c5e                __floatunsisf
-                0x00001c62                __floatsisf
+                0x00001c8e       0x7a d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+                0x00001c8e                __floatunsisf
+                0x00001c92                __floatsisf
  .text.avr-libc.fplib
-                0x00001cd8       0x44 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_split3.o)
-                0x00001cd8                __fp_split3
-                0x00001ce8                __fp_splitA
+                0x00001d08       0x44 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                0x00001d08                __fp_split3
+                0x00001d18                __fp_splitA
  .text.avr-libc.fplib
-                0x00001d1c        0xe d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_zero.o)
-                0x00001d1c                __fp_zero
-                0x00001d1e                __fp_szero
+                0x00001d4c        0xe d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                0x00001d4c                __fp_zero
+                0x00001d4e                __fp_szero
  .text.avr-libc.fplib
-                0x00001d2a        0x8 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3.o)
-                0x00001d2a                __mulsf3
+                0x00001d5a        0x8 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+                0x00001d5a                __mulsf3
  .text.avr-libc.fplib
-                0x00001d32       0xd2 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
-                0x00001d50                __mulsf3x
-                0x00001d56                __mulsf3_pse
+                0x00001d62       0xd2 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                0x00001d80                __mulsf3x
+                0x00001d86                __mulsf3_pse
  .text.avr-libc.fplib
-                0x00001e04        0xc d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_inf.o)
-                0x00001e04                __fp_inf
+                0x00001e34        0xc d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+                0x00001e34                __fp_inf
  .text.avr-libc.fplib
-                0x00001e10        0x6 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_nan.o)
-                0x00001e10                __fp_nan
+                0x00001e40        0x6 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+                0x00001e40                __fp_nan
  .text.avr-libc.fplib
-                0x00001e16        0xe d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
-                0x00001e16                __fp_pscA
+                0x00001e46        0xe d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+                0x00001e46                __fp_pscA
  .text.avr-libc.fplib
-                0x00001e24        0xe d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
-                0x00001e24                __fp_pscB
+                0x00001e54        0xe d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+                0x00001e54                __fp_pscB
  .text.avr-libc.fplib
-                0x00001e32       0x22 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_round.o)
-                0x00001e32                __fp_round
+                0x00001e62       0x22 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_round.o)
+                0x00001e62                __fp_round
  .text.libgcc.div
-                0x00001e54       0x44 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
-                0x00001e54                __udivmodsi4
+                0x00001e84       0x44 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x00001e84                __udivmodsi4
  .text.libgcc.mul
-                0x00001e98       0x1e d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
-                0x00001e98                __umulhisi3
-                0x00001eb6                . = ALIGN (0x2)
+                0x00001ec8       0x1e d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+                0x00001ec8                __umulhisi3
+                0x00001ee6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00001eb6        0x0 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00001eb6                _exit
-                0x00001eb6                exit
+ .fini9         0x00001ee6        0x0 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00001ee6                _exit
+                0x00001ee6                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -955,11 +957,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00001eb6        0x4 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00001ee6        0x4 d:/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00001eba                _etext = .
+                0x00001eea                _etext = .
 
-.data           0x00800060       0x5a load address 0x00001eba
+.data           0x00800060       0x5a load address 0x00001eea
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -980,7 +982,7 @@ END GROUP
                 0x008000ba                _edata = .
                 0x008000ba                PROVIDE (__data_end, .)
 
-.bss            0x008000ba      0x462
+.bss            0x008000ba      0x47d
                 0x008000ba                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
@@ -1037,26 +1039,26 @@ END GROUP
  .bss.xDelayedTaskList1
                 0x008004e8        0x9 FreeRTOS/tasks.o
  .bss.pxReadyTasksLists
-                0x008004f1       0x1b FreeRTOS/tasks.o
+                0x008004f1       0x36 FreeRTOS/tasks.o
  .bss.pxCurrentTCB
-                0x0080050c        0x2 FreeRTOS/tasks.o
-                0x0080050c                pxCurrentTCB
- .bss.CTC_ptr   0x0080050e        0x2 TIMER0_prog.o
- .bss.OVF_ptr   0x00800510        0x2 TIMER0_prog.o
- .bss.CTC_ptr   0x00800512        0x2 TIMER2_prog.o
- .bss.OVF_ptr   0x00800514        0x2 TIMER2_prog.o
+                0x00800527        0x2 FreeRTOS/tasks.o
+                0x00800527                pxCurrentTCB
+ .bss.CTC_ptr   0x00800529        0x2 TIMER0_prog.o
+ .bss.OVF_ptr   0x0080052b        0x2 TIMER0_prog.o
+ .bss.CTC_ptr   0x0080052d        0x2 TIMER2_prog.o
+ .bss.OVF_ptr   0x0080052f        0x2 TIMER2_prog.o
  *(COMMON)
- COMMON         0x00800516        0x6 Rover_prog.o
-                0x00800516                Rover_state
-                0x0080051c                PROVIDE (__bss_end, .)
-                0x00001eba                __data_load_start = LOADADDR (.data)
-                0x00001f14                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800531        0x6 Rover_prog.o
+                0x00800531                Rover_state
+                0x00800537                PROVIDE (__bss_end, .)
+                0x00001eea                __data_load_start = LOADADDR (.data)
+                0x00001f44                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080051c        0x0
+.noinit         0x00800537        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x0080051c                _end = .
+                0x00800537                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -1171,7 +1173,7 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x5914
+.debug_info     0x00000000     0x5904
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x4e6 D:/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
  .debug_info    0x000004e6      0x1b2 DIO_prog.o
@@ -1179,72 +1181,72 @@ END GROUP
  .debug_info    0x00000887      0x329 FreeRTOS/heap_2.o
  .debug_info    0x00000bb0      0x2cd FreeRTOS/list.o
  .debug_info    0x00000e7d      0x24e FreeRTOS/port.o
- .debug_info    0x000010cb     0x1c9f FreeRTOS/tasks.o
- .debug_info    0x00002d6a      0xdf7 LCD_prog.o
- .debug_info    0x00003b61      0x220 main.o
- .debug_info    0x00003d81     0x1246 Rover_prog.o
- .debug_info    0x00004fc7      0x144 SG90_prog.o
- .debug_info    0x0000510b      0x188 TIMER0_prog.o
- .debug_info    0x00005293      0x1b6 TIMER1_prog.o
- .debug_info    0x00005449      0x188 TIMER2_prog.o
- .debug_info    0x000055d1       0xe4 UART_prog.o
- .debug_info    0x000056b5      0x25f UltraSonic_prog.o
+ .debug_info    0x000010cb     0x1c66 FreeRTOS/tasks.o
+ .debug_info    0x00002d31      0xdf7 LCD_prog.o
+ .debug_info    0x00003b28      0x220 main.o
+ .debug_info    0x00003d48     0x126f Rover_prog.o
+ .debug_info    0x00004fb7      0x144 SG90_prog.o
+ .debug_info    0x000050fb      0x188 TIMER0_prog.o
+ .debug_info    0x00005283      0x1b6 TIMER1_prog.o
+ .debug_info    0x00005439      0x188 TIMER2_prog.o
+ .debug_info    0x000055c1       0xe4 UART_prog.o
+ .debug_info    0x000056a5      0x25f UltraSonic_prog.o
 
-.debug_abbrev   0x00000000     0x1663
+.debug_abbrev   0x00000000     0x1686
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x4a3 D:/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
  .debug_abbrev  0x000004a3       0xa9 DIO_prog.o
  .debug_abbrev  0x0000054c       0xc6 EXTI_prog.o
  .debug_abbrev  0x00000612      0x1a0 FreeRTOS/heap_2.o
  .debug_abbrev  0x000007b2       0xf8 FreeRTOS/list.o
- .debug_abbrev  0x000008aa      0x143 FreeRTOS/port.o
- .debug_abbrev  0x000009ed      0x2bf FreeRTOS/tasks.o
- .debug_abbrev  0x00000cac      0x241 LCD_prog.o
- .debug_abbrev  0x00000eed       0x81 main.o
- .debug_abbrev  0x00000f6e      0x217 Rover_prog.o
- .debug_abbrev  0x00001185       0xa7 SG90_prog.o
- .debug_abbrev  0x0000122c       0xc6 TIMER0_prog.o
- .debug_abbrev  0x000012f2       0xaa TIMER1_prog.o
- .debug_abbrev  0x0000139c       0xc6 TIMER2_prog.o
- .debug_abbrev  0x00001462       0x80 UART_prog.o
- .debug_abbrev  0x000014e2      0x181 UltraSonic_prog.o
+ .debug_abbrev  0x000008aa      0x15d FreeRTOS/port.o
+ .debug_abbrev  0x00000a07      0x2b8 FreeRTOS/tasks.o
+ .debug_abbrev  0x00000cbf      0x241 LCD_prog.o
+ .debug_abbrev  0x00000f00       0x81 main.o
+ .debug_abbrev  0x00000f81      0x227 Rover_prog.o
+ .debug_abbrev  0x000011a8       0xa7 SG90_prog.o
+ .debug_abbrev  0x0000124f       0xc6 TIMER0_prog.o
+ .debug_abbrev  0x00001315       0xaa TIMER1_prog.o
+ .debug_abbrev  0x000013bf       0xc6 TIMER2_prog.o
+ .debug_abbrev  0x00001485       0x80 UART_prog.o
+ .debug_abbrev  0x00001505      0x181 UltraSonic_prog.o
 
-.debug_line     0x00000000     0x326c
+.debug_line     0x00000000     0x3210
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x116 D:/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
  .debug_line    0x00000116      0x183 DIO_prog.o
  .debug_line    0x00000299      0x210 EXTI_prog.o
  .debug_line    0x000004a9      0x25c FreeRTOS/heap_2.o
  .debug_line    0x00000705      0x1b1 FreeRTOS/list.o
- .debug_line    0x000008b6      0x283 FreeRTOS/port.o
- .debug_line    0x00000b39     0x1136 FreeRTOS/tasks.o
- .debug_line    0x00001c6f      0x627 LCD_prog.o
- .debug_line    0x00002296       0x75 main.o
- .debug_line    0x0000230b      0x80b Rover_prog.o
- .debug_line    0x00002b16       0x9d SG90_prog.o
- .debug_line    0x00002bb3      0x162 TIMER0_prog.o
- .debug_line    0x00002d15      0x1c3 TIMER1_prog.o
- .debug_line    0x00002ed8      0x168 TIMER2_prog.o
- .debug_line    0x00003040       0xb0 UART_prog.o
- .debug_line    0x000030f0      0x17c UltraSonic_prog.o
+ .debug_line    0x000008b6      0x284 FreeRTOS/port.o
+ .debug_line    0x00000b3a     0x10c9 FreeRTOS/tasks.o
+ .debug_line    0x00001c03      0x627 LCD_prog.o
+ .debug_line    0x0000222a       0x75 main.o
+ .debug_line    0x0000229f      0x81b Rover_prog.o
+ .debug_line    0x00002aba       0x9d SG90_prog.o
+ .debug_line    0x00002b57      0x162 TIMER0_prog.o
+ .debug_line    0x00002cb9      0x1c3 TIMER1_prog.o
+ .debug_line    0x00002e7c      0x168 TIMER2_prog.o
+ .debug_line    0x00002fe4       0xb0 UART_prog.o
+ .debug_line    0x00003094      0x17c UltraSonic_prog.o
 
-.debug_frame    0x00000000     0x1098
+.debug_frame    0x00000000     0x10e4
  *(.debug_frame)
  .debug_frame   0x00000000       0x64 DIO_prog.o
  .debug_frame   0x00000064      0x19c EXTI_prog.o
  .debug_frame   0x00000200       0x8c FreeRTOS/heap_2.o
  .debug_frame   0x0000028c       0x88 FreeRTOS/list.o
- .debug_frame   0x00000314       0x84 FreeRTOS/port.o
- .debug_frame   0x00000398      0x5c4 FreeRTOS/tasks.o
- .debug_frame   0x0000095c      0x204 LCD_prog.o
- .debug_frame   0x00000b60       0x24 main.o
- .debug_frame   0x00000b84      0x1d4 Rover_prog.o
- .debug_frame   0x00000d58       0x34 SG90_prog.o
- .debug_frame   0x00000d8c      0x104 TIMER0_prog.o
- .debug_frame   0x00000e90       0x74 TIMER1_prog.o
- .debug_frame   0x00000f04      0x104 TIMER2_prog.o
- .debug_frame   0x00001008       0x44 UART_prog.o
- .debug_frame   0x0000104c       0x4c UltraSonic_prog.o
+ .debug_frame   0x00000314       0xcc FreeRTOS/port.o
+ .debug_frame   0x000003e0      0x5b8 FreeRTOS/tasks.o
+ .debug_frame   0x00000998      0x204 LCD_prog.o
+ .debug_frame   0x00000b9c       0x24 main.o
+ .debug_frame   0x00000bc0      0x1e4 Rover_prog.o
+ .debug_frame   0x00000da4       0x34 SG90_prog.o
+ .debug_frame   0x00000dd8      0x104 TIMER0_prog.o
+ .debug_frame   0x00000edc       0x74 TIMER1_prog.o
+ .debug_frame   0x00000f50      0x104 TIMER2_prog.o
+ .debug_frame   0x00001054       0x44 UART_prog.o
+ .debug_frame   0x00001098       0x4c UltraSonic_prog.o
 
 .debug_str      0x00000000     0x19c3
  *(.debug_str)
@@ -1280,21 +1282,21 @@ END GROUP
  .debug_str     0x0000195f       0x64 UltraSonic_prog.o
                                 0x299 (size before relaxing)
 
-.debug_loc      0x00000000     0x448e
+.debug_loc      0x00000000     0x44a2
  *(.debug_loc)
  .debug_loc     0x00000000      0x2a0 DIO_prog.o
  .debug_loc     0x000002a0      0x2cd EXTI_prog.o
  .debug_loc     0x0000056d      0x2a8 FreeRTOS/heap_2.o
  .debug_loc     0x00000815      0x145 FreeRTOS/list.o
- .debug_loc     0x0000095a      0x2a0 FreeRTOS/port.o
- .debug_loc     0x00000bfa     0x1f4f FreeRTOS/tasks.o
- .debug_loc     0x00002b49      0xdeb LCD_prog.o
- .debug_loc     0x00003934      0x516 Rover_prog.o
- .debug_loc     0x00003e4a       0x5d SG90_prog.o
- .debug_loc     0x00003ea7      0x228 TIMER0_prog.o
- .debug_loc     0x000040cf       0x7c TIMER1_prog.o
- .debug_loc     0x0000414b      0x228 TIMER2_prog.o
- .debug_loc     0x00004373      0x11b UltraSonic_prog.o
+ .debug_loc     0x0000095a      0x36b FreeRTOS/port.o
+ .debug_loc     0x00000cc5     0x1e50 FreeRTOS/tasks.o
+ .debug_loc     0x00002b15      0xdeb LCD_prog.o
+ .debug_loc     0x00003900      0x55e Rover_prog.o
+ .debug_loc     0x00003e5e       0x5d SG90_prog.o
+ .debug_loc     0x00003ebb      0x228 TIMER0_prog.o
+ .debug_loc     0x000040e3       0x7c TIMER1_prog.o
+ .debug_loc     0x0000415f      0x228 TIMER2_prog.o
+ .debug_loc     0x00004387      0x11b UltraSonic_prog.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -1314,23 +1316,23 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x538
+.debug_ranges   0x00000000      0x518
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x30 DIO_prog.o
  .debug_ranges  0x00000030       0x60 EXTI_prog.o
  .debug_ranges  0x00000090       0x30 FreeRTOS/heap_2.o
  .debug_ranges  0x000000c0       0x30 FreeRTOS/list.o
  .debug_ranges  0x000000f0       0x40 FreeRTOS/port.o
- .debug_ranges  0x00000130      0x1b0 FreeRTOS/tasks.o
- .debug_ranges  0x000002e0       0x98 LCD_prog.o
- .debug_ranges  0x00000378       0x10 main.o
- .debug_ranges  0x00000388       0xb0 Rover_prog.o
- .debug_ranges  0x00000438       0x18 SG90_prog.o
- .debug_ranges  0x00000450       0x38 TIMER0_prog.o
- .debug_ranges  0x00000488       0x38 TIMER1_prog.o
- .debug_ranges  0x000004c0       0x38 TIMER2_prog.o
- .debug_ranges  0x000004f8       0x20 UART_prog.o
- .debug_ranges  0x00000518       0x20 UltraSonic_prog.o
+ .debug_ranges  0x00000130      0x190 FreeRTOS/tasks.o
+ .debug_ranges  0x000002c0       0x98 LCD_prog.o
+ .debug_ranges  0x00000358       0x10 main.o
+ .debug_ranges  0x00000368       0xb0 Rover_prog.o
+ .debug_ranges  0x00000418       0x18 SG90_prog.o
+ .debug_ranges  0x00000430       0x38 TIMER0_prog.o
+ .debug_ranges  0x00000468       0x38 TIMER1_prog.o
+ .debug_ranges  0x000004a0       0x38 TIMER2_prog.o
+ .debug_ranges  0x000004d8       0x20 UART_prog.o
+ .debug_ranges  0x000004f8       0x20 UltraSonic_prog.o
 
 .debug_macro
  *(.debug_macro)

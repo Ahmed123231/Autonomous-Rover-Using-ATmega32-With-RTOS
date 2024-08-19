@@ -35,10 +35,10 @@
 #define IRF_PIN		DIO_PIN3
 
 #define MOVEMENT_TASK_PRIORITY					2
-#define SENSORS_TASK_PRIORITY					1
-#define DISPLAY_TASK_PRIORITY					2
-#define BLUETOOTH_TASK_PRIORITY					1
-#define INIT_TASK_PRIORITY						3
+#define SENSORS_TASK_PRIORITY					3
+#define DISPLAY_TASK_PRIORITY					1
+#define BLUETOOTH_TASK_PRIORITY					0
+#define INIT_TASK_PRIORITY						4
 
 
 typedef struct{
