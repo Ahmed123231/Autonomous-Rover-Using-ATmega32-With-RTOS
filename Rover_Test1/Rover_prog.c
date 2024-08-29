@@ -46,37 +46,43 @@ void Radar_LCD_Init(void){
    Takes pointers to store the angles swept. Returns the status. */
 void Radar_LCD_Sweep(u8 *angle_1 , u8 *angle_2){
 	
-	
+			/*
 			UltraSonic_Sendpulse();
 			Rover_state.Distance = UltraSonic_Calc_Distance(UltraSonic_Read_Echo);
 			ROVER_LCD_PrintStatus(&Rover_state);
+			*/
 			// Sweep from 0 to 180 degrees
 			for(*angle_1=90 ; *angle_1 < 180; *angle_1 += 1) {
 				
 				Servo_SetAngle(*angle_1);
 				_delay_ms(15);
 			}
+			/*
 			UltraSonic_Sendpulse();
 			Rover_state.Distance = UltraSonic_Calc_Distance(UltraSonic_Read_Echo);
 			ROVER_LCD_PrintStatus(&Rover_state);
+			*/
 			// Sweep back from 180 to 0 degrees
 			for(*angle_2 =*angle_1; *angle_2 >0; *angle_2 -= 1) {
 
 				Servo_SetAngle(*angle_2);
 				_delay_ms(15);
 			}
+			/*
 			UltraSonic_Sendpulse();
 			Rover_state.Distance = UltraSonic_Calc_Distance(UltraSonic_Read_Echo);
 			ROVER_LCD_PrintStatus(&Rover_state);
+			*/
 			for (*angle_2=0 ;*angle_2 <=90 ; *angle_2 +=1)
 			{
 				Servo_SetAngle(*angle_2);
 				_delay_ms(15);
 			}
+			/*
 			UltraSonic_Sendpulse();
 			Rover_state.Distance = UltraSonic_Calc_Distance(UltraSonic_Read_Echo);
 			ROVER_LCD_PrintStatus(&Rover_state);
-			
+			*/
 			
 	
 	
@@ -231,7 +237,7 @@ void IrSensor_GetDir(void){
 			Rover_state.R_Obj = DIO_u8GetPinVal(IRR_PORT, IRR_PIN);
 			Rover_state.L_Obj = DIO_u8GetPinVal(IRL_PORT, IRL_PIN);
 			Rover_state.F_Obj = DIO_u8GetPinVal(IRF_PORT, IRF_PIN);
-
+			
 }
 
 /*************** Initialize Buzzer Module ***************/
@@ -321,6 +327,7 @@ void vTask_RoverMove(void){
 	
 
 	while(1){
+		
 		// Check if the front is clear (IR sensor or ultrasonic distance)
 		if (Rover_state.F_Obj == 1 && Rover_state.Distance > 10) {
 			Rover_voidMOVFWD(50);
@@ -362,7 +369,9 @@ void vTask_DataDisplay(void){
 	
 	
 	while(1){
+		
 		ROVER_LCD_PrintStatus(&Rover_state);
+		//RoverTransmitStatus();
 		vTaskDelay(pdMS_TO_TICKS(150));
 	}
 	
@@ -370,23 +379,37 @@ void vTask_DataDisplay(void){
 
 void vTask_SensorRead(void){
 	
-	u8 angle_1 = 0, angle_2 = 90;
+	
 	while(1){
 		
 		IrSensor_GetDir();
-		UltraSonic_Sendpulse();
-		Rover_state.Distance = UltraSonic_Calc_Distance(UltraSonic_Read_Echo);
-		Radar_LCD_Sweep(&angle_1,&angle_2);
-		vTaskDelay(pdMS_TO_TICKS(150));
+		
+		vTaskDelay(20);
 	}
 	
 	
 }
 
+void vTask_UltraSonicSendData(void){
+	
+	while(1){
+		
+	UltraSonic_Sendpulse();
+	Rover_state.Distance = UltraSonic_Calc_Distance(UltraSonic_Read_Echo);
+	IrSensor_GetDir();
+	vTaskDelay(20);
+	}
+	
+	
+}
+
+
 void vTask_BT_SendStatus(void){
 	while(1){
+		
 		RoverTransmitStatus();
-		vTaskDelay(pdMS_TO_TICKS(150));
+		vTaskDelay(pdMS_TO_TICKS(50));
+		
 	}
 	
 }

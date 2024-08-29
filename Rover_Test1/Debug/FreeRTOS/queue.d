@@ -18,7 +18,7 @@ FreeRTOS/queue.d FreeRTOS/queue.o: ../FreeRTOS/queue.c \
  ../FreeRTOS/projdefs.h ../FreeRTOS/portable.h \
  ../FreeRTOS/deprecated_definitions.h ../FreeRTOS/portmacro.h \
  ../FreeRTOS/mpu_wrappers.h ../FreeRTOS/task.h ../FreeRTOS/list.h \
- ../FreeRTOS/queue.h ../FreeRTOS/croutine.h
+ ../FreeRTOS/queue.h
 
 d:\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h:
 
@@ -67,5 +67,3 @@ d:\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h:
 ../FreeRTOS/list.h:
 
 ../FreeRTOS/queue.h:
-
-../FreeRTOS/croutine.h:

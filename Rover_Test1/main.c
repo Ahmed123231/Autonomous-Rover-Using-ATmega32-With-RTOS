@@ -33,12 +33,23 @@
 int main(void)
 {
 			
-			xTaskCreate(vTask_RoverInit,"Initialize",configMINIMAL_STACK_SIZE,NULL,INIT_TASK_PRIORITY,NULL);
-			xTaskCreate(vTask_RoverMove,"Movement",configMINIMAL_STACK_SIZE,NULL,MOVEMENT_TASK_PRIORITY,NULL);
-			xTaskCreate(vTask_DataDisplay,"Display",configMINIMAL_STACK_SIZE,NULL,DISPLAY_TASK_PRIORITY,NULL);
-			xTaskCreate(vTask_BT_SendStatus,"BT",configMINIMAL_STACK_SIZE,NULL,BLUETOOTH_TASK_PRIORITY,NULL);
-			xTaskCreate(vTask_SensorRead,"Sensors",configMINIMAL_STACK_SIZE,NULL,SENSORS_TASK_PRIORITY,NULL);
+			
+			Radar_LCD_Init();
+			Rover_voidMotorsInit();
+			IrSensor_voidInit();
+			Buzzer_voidInit();
+			RoverTransmit_Init();
+		
+			//xTaskCreate(vTask_RoverInit,"Initialize",configMINIMAL_STACK_SIZE,NULL,INIT_TASK_PRIORITY,NULL);
+			
+			xTaskCreate(vTask_UltraSonicSendData,"UltraS",configMINIMAL_STACK_SIZE,NULL,UltraSonic_TASK_PRIORITY,NULL);
+			
+			xTaskCreate(vTask_RoverMove,"Movem",configMINIMAL_STACK_SIZE,NULL,MOVEMENT_TASK_PRIORITY,NULL);
+			xTaskCreate(vTask_DataDisplay,"Displa",configMINIMAL_STACK_SIZE,NULL,DISPLAY_TASK_PRIORITY,NULL);
+			//xTaskCreate(vTask_BT_SendStatus,"BT",configMINIMAL_STACK_SIZE,NULL,BLUETOOTH_TASK_PRIORITY,NULL);
+		    
 			vTaskStartScheduler();
+			
 			
 			/**** Should Never Reach Here *******/
 			while(1);
