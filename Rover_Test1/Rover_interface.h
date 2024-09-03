@@ -34,12 +34,11 @@
 #define IRF_PORT	DIO_PORTC
 #define IRF_PIN		DIO_PIN3
 
-#define MOVEMENT_TASK_PRIORITY					4
-#define SENSORS_TASK_PRIORITY					6
-#define DISPLAY_TASK_PRIORITY					0
-#define BLUETOOTH_TASK_PRIORITY					2
-#define INIT_TASK_PRIORITY						7
-#define UltraSonic_TASK_PRIORITY				1
+#define MOVEMENT_TASK_PRIORITY					3
+
+#define DISPLAY_TASK_PRIORITY					2
+
+#define UltraSonic_TASK_PRIORITY				4
 
 typedef struct{
 		u8 Distance;   // Variable Storing Distance Value 

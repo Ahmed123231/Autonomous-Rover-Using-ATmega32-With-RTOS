@@ -304,7 +304,8 @@ void RoverTransmitStatus(void){
 	UART_voidTX('r');
 	UART_voidTX(':');
 	SendNumber(Rover_state.Direction);  // Function to send number
-	
+	UART_voidTX('\r'); // Carriage return
+	UART_voidTX('\n'); // New line
 }
 
 void vTask_RoverInit(void){
@@ -328,37 +329,108 @@ void vTask_RoverMove(void){
 
 	while(1){
 		
-		// Check if the front is clear (IR sensor or ultrasonic distance)
-		if (Rover_state.F_Obj == 1 && Rover_state.Distance > 10) {
-			Rover_voidMOVFWD(50);
-			while (Rover_state.F_Obj == 1 && Rover_state.Distance > 10) {
-				vTaskDelay(pdMS_TO_TICKS(100));
-			}
-			Rover_voidStop();
-			} else {
-			Rover_voidMOVBCWD(55);
-			vTaskDelay(pdMS_TO_TICKS(500));
-			Rover_voidStop();
+		 u8 frontBlockedCheckCount = 0;
+		 // Case 1: Move forward if the front is clear and there's enough distance
+		 if (Rover_state.F_Obj == 1 && Rover_state.Distance > 10) {
+			 Rover_voidMOVFWD(55);  // Move forward at speed 55
+			 while (Rover_state.F_Obj == 1 && Rover_state.Distance > 10) {
+				 vTaskDelay(pdMS_TO_TICKS(100));  // Short delay to avoid jitter
+				 // Stop if the front becomes blocked
+				 if (Rover_state.F_Obj != 1 || Rover_state.Distance <= 10) {
+					 Rover_voidStop();
+					 break;
+				 }
+			 }
+			 frontBlockedCheckCount = 0;  // Reset the counter if moving forward
+		 }
+		 // Case 2: If the front is blocked, decide next action
+		 else {
+			 Rover_voidStop();
+			 vTaskDelay(pdMS_TO_TICKS(500));  // Pause for a moment
 
-			if (Rover_state.L_Obj != 1 && Rover_state.R_Obj == 1) {
-				Rover_voidMOVRW(85);
-				vTaskDelay(pdMS_TO_TICKS(1750));
-				} else if (Rover_state.R_Obj != 1 && Rover_state.L_Obj == 1) {
-				Rover_voidMOVLF(85);
-				vTaskDelay(pdMS_TO_TICKS(1750));
-				} else if (Rover_state.L_Obj == 1) {
-				Rover_voidMOVLF(85);
-				vTaskDelay(pdMS_TO_TICKS(1750));
-				} else if (Rover_state.R_Obj == 1) {
-				Rover_voidMOVRW(85);
-				vTaskDelay(pdMS_TO_TICKS(1750));
-			}
+			 // Check if the back is clear and no objects are detected behind
+			 if (Rover_state.B_Obj == 1) {
+				 Rover_voidMOVBCWD(55);  // Move backward at speed 55
+				 vTaskDelay(pdMS_TO_TICKS(300));  // Backward duration
 
-			vTaskDelay(pdMS_TO_TICKS(500));
-			Rover_voidStop();
-			vTaskDelay(pdMS_TO_TICKS(50));
-		}
-		vTaskDelay(pdMS_TO_TICKS(100));
+				 // Recheck the environment after moving backward
+				 if (Rover_state.F_Obj == 1 && Rover_state.Distance > 10) {
+					 frontBlockedCheckCount++;
+					 } else {
+					 frontBlockedCheckCount = 0;  // Reset the counter if the front is clear
+				 }
+
+				 // If the front is blocked twice, perform a turn
+				 if (frontBlockedCheckCount >= 2) {
+					 // Check sensor states to decide the next move
+					 if (Rover_state.L_Obj != 1 && Rover_state.R_Obj == 1) {
+						 // Left is clear, right is blocked -> Turn left
+						 Rover_voidMOVLF(85);  // Turn left at speed 85
+						 vTaskDelay(pdMS_TO_TICKS(1500));  // Turn duration
+					 }
+					 else if (Rover_state.R_Obj != 1 && Rover_state.L_Obj == 1) {
+						 // Right is clear, left is blocked -> Turn right
+						 Rover_voidMOVRW(85);  // Turn right at speed 85
+						 vTaskDelay(pdMS_TO_TICKS(1500));  // Turn duration
+					 }
+					 else if (Rover_state.L_Obj != 1 && Rover_state.R_Obj != 1) {
+						 // Both left and right are clear, choose to turn left
+						 Rover_voidMOVLF(85);  // Turn left at speed 85
+						 vTaskDelay(pdMS_TO_TICKS(1500));  // Turn duration
+					 }
+					 else {
+						 // Both left and right are blocked
+						 Rover_voidMOVBCWD(55);  // Move backward at speed 55
+						 vTaskDelay(pdMS_TO_TICKS(300));  // Backward duration
+
+						 Rover_voidMOVLF(85);  // Turn left at speed 85
+						 vTaskDelay(pdMS_TO_TICKS(1500));  // Longer turn to ensure clearance
+					 }
+
+					 Rover_voidStop();
+					 vTaskDelay(pdMS_TO_TICKS(150));  // Pause after turning
+
+					 // Reset the counter after turning
+					 frontBlockedCheckCount = 0;
+					 } else {
+					 continue;  // Skip further checks and recheck conditions
+				 }
+				 } else {
+				 // The back is blocked or no objects detected behind, handle turning
+				 // Check sensor states to decide the next move
+				 if (Rover_state.L_Obj != 1 && Rover_state.R_Obj == 1) {
+					 // Left is clear, right is blocked -> Turn left
+					 Rover_voidMOVLF(85);  // Turn left at speed 85
+					 vTaskDelay(pdMS_TO_TICKS(1500));  // Turn duration
+				 }
+				 else if (Rover_state.R_Obj != 1 && Rover_state.L_Obj == 1) {
+					 // Right is clear, left is blocked -> Turn right
+					 Rover_voidMOVRW(85);  // Turn right at speed 85
+					 vTaskDelay(pdMS_TO_TICKS(1500));  // Turn duration
+				 }
+				 else if (Rover_state.L_Obj != 1 && Rover_state.R_Obj != 1) {
+					 // Both left and right are clear, choose to turn left
+					 Rover_voidMOVLF(85);  // Turn left at speed 85
+					 vTaskDelay(pdMS_TO_TICKS(1500));  // Turn duration
+				 }
+				 else {
+					 // Both left and right are blocked
+					 Rover_voidMOVBCWD(55);  // Move backward at speed 55
+					 vTaskDelay(pdMS_TO_TICKS(300));  // Backward duration
+
+					 Rover_voidMOVLF(85);  // Turn left at speed 85
+					 vTaskDelay(pdMS_TO_TICKS(1500));  // Longer turn to ensure clearance
+				 }
+
+				 Rover_voidStop();
+				 vTaskDelay(pdMS_TO_TICKS(150));  // Pause after turning
+			 }
+		 }
+
+		 // Small delay before the next control loop iteration
+		 vTaskDelay(pdMS_TO_TICKS(100));  // General task delay
+		
+		
 	}
 	
 	
@@ -371,7 +443,7 @@ void vTask_DataDisplay(void){
 	while(1){
 		
 		ROVER_LCD_PrintStatus(&Rover_state);
-		//RoverTransmitStatus();
+		RoverTransmitStatus();
 		vTaskDelay(pdMS_TO_TICKS(150));
 	}
 	
